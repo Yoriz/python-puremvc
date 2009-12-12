@@ -7,7 +7,7 @@
 import puremvc.interfaces
 import puremvc.patterns.observer
 
-class Controller(object,puremvc.interfaces.IController):
+class Controller(puremvc.interfaces.IController):
     """
     A Singleton C{IController} implementation.
     
@@ -130,7 +130,7 @@ class Controller(object,puremvc.interfaces.IController):
             del self.commandMap[notificationName]
         
 
-class Model(object,puremvc.interfaces.IModel):
+class Model(puremvc.interfaces.IModel):
     """
     A Singleton C{IModel} implementation.
     
@@ -222,7 +222,7 @@ class Model(object,puremvc.interfaces.IModel):
             proxy.onRemove()
         return proxy
 
-class View(object,puremvc.interfaces.IView):
+class View(puremvc.interfaces.IView):
     """
     A Singleton C{IView} implementation.
     
@@ -371,7 +371,7 @@ class View(object,puremvc.interfaces.IView):
         @param mediatorName: name of the C{IMediator} instance to be removed.
         @return: the C{IMediator} that was removed from the C{View}
         """
-        for notificationName in self.observerMap.keys():
+        for notificationName in tuple(self.observerMap.keys()):
             observers = self.observerMap[notificationName]
             removalTargets = []
             for i in range(0,len(observers)):
