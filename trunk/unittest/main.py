@@ -2,8 +2,7 @@ import unittest
 from core import controller,model,view
 from patterns import command, facade, mediator, observer, proxy
 
-if __name__ == '__main__':
-    
+def runAllTests():    
     TestSuite = unittest.TestSuite()
     
     TestSuite.addTest(controller.ControllerTest("assertNotNone"))
@@ -60,3 +59,7 @@ if __name__ == '__main__':
     TestSuite.addTest(proxy.ProxyTest("testConstructor"))
     
     unittest.TextTestRunner(verbosity=2).run(TestSuite)
+
+
+if __name__ == '__main__':
+    runAllTests()
