@@ -3,13 +3,15 @@
  PureMVC - Copyright(c) 2006-08 Futurescale, Inc., Some rights reserved. 
  Your reuse is governed by the Creative Commons Attribution 3.0 License 
 """
+import abc
 
-class ICommand:
+class ICommand(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC Command.
 
     @see: L{INotification<puremvc.interfaces.INotification>}
     """
+    @abc.abstractmethod
     def execute(self, notification):
         """
         Execute the C{ICommand}'s logic to handle a given C{INotification}.
@@ -20,7 +22,7 @@ class ICommand:
         """
         raise NotImplementedError()
 
-class IController:
+class IController(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC Controller.
 
@@ -45,6 +47,7 @@ class IController:
     @see: L{INotification<puremvc.interfaces.INotification>}
     @see: L{ICommand<puremvc.interfaces.ICommand>}
     """
+    @abc.abstractmethod
     def registerCommand(self, notificationName, commandClassRef):
         """
         Register a particular C{ICommand} class as the handler for a particular C{INotification}.
@@ -54,6 +57,7 @@ class IController:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def executeCommand(self, notification):
         """
         Execute the C{ICommand} previously registered as thehandler for C{INotification}s with the given notification name.
@@ -62,6 +66,7 @@ class IController:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def removeCommand(self, notificationName):
         """
         Remove a previously registered C{ICommand} to C{INotification} mapping.
@@ -70,6 +75,7 @@ class IController:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def hasCommand(self, notificationName):
         """
         Check if a Command is registered for a given Notification 
@@ -79,7 +85,7 @@ class IController:
         """
         raise NotImplementedError()
 
-class IFacade:
+class IFacade(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC Facade.
     
@@ -97,6 +103,7 @@ class IFacade:
     @see: L{ICommand<puremvc.interfaces.ICommand>}
     @see: L{INotification<puremvc.interfaces.INotification>}
     """
+    @abc.abstractmethod
     def notifyObservers(self,note):
         """
         Notify the C{IObserver}s for a particular C{INotification}.
@@ -111,6 +118,7 @@ class IFacade:
         """
         raise NotImplementedError()
 
+    @abc.abstractmethod
     def registerProxy(self, proxy):
         """
         Register an C{IProxy} with the C{Model} by name.
@@ -119,6 +127,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def retrieveProxy(self, proxyName):
         """
         Retrieve a C{IProxy} from the C{Model} by name.
@@ -128,6 +137,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def removeProxy(self, proxyName):
         """
         Remove an C{IProxy} instance from the C{Model} by name.
@@ -137,6 +147,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def hasProxy(self, proxyName):
         """
         Check if a Proxy is registered
@@ -146,6 +157,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def registerCommand(self, noteName, commandClassRef):
         """
         Register an C{ICommand} with the C{Controller}.
@@ -155,6 +167,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def removeCommand(self, notificationName):
         """
          Remove a previously registered C{ICommand} to C{INotification} mapping from the Controller.
@@ -163,6 +176,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def hasCommand(self, notificationName):
         """
         Check if a Command is registered for a given Notification 
@@ -172,6 +186,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def registerMediator(self, mediator):
         """
         Register an C{IMediator} instance with the C{View}.
@@ -180,6 +195,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def retrieveMediator(self, mediatorName):
         """
         Retrieve an C{IMediator} instance from the C{View}.
@@ -189,6 +205,7 @@ class IFacade:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def removeMediator(self, mediatorName):
         """
         Remove a C{IMediator} instance from the C{View}.
@@ -198,7 +215,7 @@ class IFacade:
         """
         raise NotImplementedError()
 
-class IMediator:
+class IMediator(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC Mediator.
     
@@ -232,6 +249,7 @@ class IMediator:
     
     @see: L{INotification<puremvc.interfaces.INotification>}
     """
+    @abc.abstractmethod
     def getMediatorName(self):
         """
         Get the C{IMediator} instance name
@@ -240,6 +258,7 @@ class IMediator:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def getViewComponent(self):
         """
         Get the C{IMediator}'s view component.
@@ -248,6 +267,7 @@ class IMediator:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def setViewComponent(self, viewComponent):
         """
         Set the C{IMediator}'s view component.
@@ -256,6 +276,7 @@ class IMediator:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def listNotificationInterests(self):
         """
         List C{INotification} interests.
@@ -264,6 +285,7 @@ class IMediator:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def handleNotification(self, notification):
         """
         Handle an C{INotification}.
@@ -272,12 +294,14 @@ class IMediator:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def onRegister(self):
         """
         Called by the View when the Mediator is registered
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def onRemove(self):
         """
         Called by the View when the Mediator is removed
@@ -295,6 +319,7 @@ class IModel:
     
     Maintain a cache of C{IProxy} instances and Provide methods for registering, retrieving, and removing C{IProxy} instances
     """
+    @abc.abstractmethod
     def registerProxy(self, proxy):
         """
         Register an C{IProxy} instance with the C{Model}.
@@ -303,6 +328,7 @@ class IModel:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def retrieveProxy(self, proxyName):
         """
         Retrieve an C{IProxy} instance from the Model.
@@ -312,6 +338,7 @@ class IModel:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def removeProxy(self, proxyName):
         """
         Remove an C{IProxy} instance from the Model.
@@ -321,6 +348,7 @@ class IModel:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def hasProxy(self, proxyName):
         """
         Check if a Proxy is registered
@@ -330,7 +358,7 @@ class IModel:
         """
         raise NotImplementedError()
 
-class INotification:
+class INotification(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC Notification.
 
@@ -361,43 +389,49 @@ class INotification:
     @see: L{IView<puremvc.interfaces.IView>}
     @see: L{IObserver<puremvc.interfaces.IObserver>}
     """
+    @abc.abstractmethod
     def getName(self):
         """
         Get the name of the C{INotification} instance. 
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def setBody(self, body):
         """
         Set the body of the C{INotification} instance
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def getBody(self):
         """
         Get the body of the C{INotification} instance
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def setType(self, type):
         """
         Set the type of the C{INotification} instance
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def getType(self):
         """
         Get the type of the C{INotification} instance
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def str(self):
         """
         Get the string representation of the C{INotification} instance
         """
         raise NotImplementedError()
 
-class INotifier:
+class INotifier(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC Notifier.
     
@@ -418,6 +452,7 @@ class INotifier:
     @see: L{IFacade<puremvc.interfaces.IFacade>}
     @see: L{INotification<puremvc.interfaces.INotification>}
     """
+    @abc.abstractmethod
     def sendNotification(self, notificationName, body = None, type = None):
         """
         Send a C{INotification}.
@@ -431,7 +466,7 @@ class INotifier:
         """
         raise NotImplementedError()
 
-class IObserver:
+class IObserver(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC Observer.
 
@@ -472,6 +507,7 @@ class IObserver:
     @see: L{IView<puremvc.interfaces.IView>}
     @see: L{INotification<puremvc.interfaces.INotification>}
     """
+    @abc.abstractmethod
     def setNotifyMethod(self, notifyMethod):
         """
         Set the notification method.
@@ -482,6 +518,7 @@ class IObserver:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def setNotifyContext(self, notifyContext):
         """
         Set the notification context.
@@ -490,6 +527,7 @@ class IObserver:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def notifyObserver(self, notification):
         """
         Notify the interested object.
@@ -498,6 +536,7 @@ class IObserver:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def compareNotifyContext(self, object):
         """
         Compare the given object to the notificaiton context object.
@@ -507,7 +546,7 @@ class IObserver:
         """
         raise NotImplementedError()  
 
-class IProxy:
+class IProxy(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC Proxy.
 
@@ -525,6 +564,7 @@ class IProxy:
     Expose their name as a C{public static const} called C{NAME}, if they are not instantiated multiple times.
     Encapsulate interaction with local or remote services used to fetch and persist model data.
     """
+    @abc.abstractmethod
     def getProxyName(self):
         """
         Get the Proxy name
@@ -533,6 +573,7 @@ class IProxy:
         """
         raise NotImplementedError()
 
+    @abc.abstractmethod
     def setData(data):
         """
         Set the data object
@@ -541,6 +582,7 @@ class IProxy:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def getData():
         """
         Get the data object
@@ -549,19 +591,21 @@ class IProxy:
         """
         raise NotImplementedError() 
 
-    def onRegister( ):
+    @abc.abstractmethod
+    def onRegister():
         """
         Called by the Model when the Proxy is registered
         """
         raise NotImplementedError()
 
-    def onRemove( ):
+    @abc.abstractmethod
+    def onRemove():
         """
         Called by the Model when the Proxy is removed
         """
         raise NotImplementedError()
 
-class IView:
+class IView(metaclass=abc.ABCMeta):
     """
     The interface definition for a PureMVC View.
     
@@ -585,6 +629,7 @@ class IView:
     @see: L{IObserver<puremvc.interfaces.IObserver>}
     @see: L{INotification<puremvc.interfaces.INotification>}
     """
+    @abc.abstractmethod
     def registerObserver(self, notificationName, observer):
         """
         Register an C{IObserver} to be notified of C{INotifications} with a given name.
@@ -594,6 +639,7 @@ class IView:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def notifyObservers(self, notification):
         """
         Notify the C{IObservers} for a particular C{INotification}.
@@ -606,6 +652,7 @@ class IView:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def registerMediator(self, mediator):
         """
         Register an C{IMediator} instance with the C{View}.
@@ -624,6 +671,7 @@ class IView:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def retrieveMediator(self, mediatorName):
         """
         Retrieve an C{IMediator} from the C{View}.
@@ -633,6 +681,7 @@ class IView:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def removeMediator(self, mediatorName):
         """
         Remove an C{IMediator} from the C{View}.
@@ -642,6 +691,7 @@ class IView:
         """
         raise NotImplementedError()
     
+    @abc.abstractmethod
     def hasMediator(self, mediatorName):
         """
         Check if a Mediator is registered or not
